@@ -1,4 +1,4 @@
-//package com.mdski.datastr;
+package com.mdski.datastr;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -76,9 +76,13 @@ public class ArrStack<T> implements Iterable<T>{
 
     public T pop(){
         // CHECK IF ANYTHING TO POP
-        T item = this.contents[N-1];
-        this.contents[N--] = null; // POP ITEM FROM INDEX [N] AND DECREMENT N
-        return item;
+        if ( N >= 1 ) {
+            T item = this.contents[N - 1];
+            this.contents[N--] = null; // POP ITEM FROM INDEX [N] AND DECREMENT N
+            if ( N == this.contents.length/4 ) resize(2*N);
+            return item;
+        }
+        else throw new NoSuchElementException("Stack is empty");
     }
 
     public int size(){
